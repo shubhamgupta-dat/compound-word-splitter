@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from splitter import split
+from enchant import PyPWL
 
 
 # it should split compound word (English)
@@ -69,3 +70,9 @@ def test_split_incorrectly_capitalized():
     split_result = split(u'Resultatveröffentlichung', 'de_de')
     assert split_result[0] == u'Resultat', '%s != "Resultat"' % (split_result[0])
     assert split_result[1] == u'Veröffentlichung', '%s != "Veröffentlichung"' % (split_result[1])
+
+def test_split_custom_dict():
+    custom_dict = PyPWL('./tests/sample_words.txt')
+    split_result = split(u'shubhamgupta',custom_dict)
+    assert split_result[0] == 'shubham', '%s != "shubham"' % (split_result[0])
+    assert split_result[1] == 'gupta', '%s != "gupta"' % (split_result[1])
