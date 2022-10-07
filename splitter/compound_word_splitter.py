@@ -20,7 +20,12 @@ def __capitalize_first_char(word):
 
 
 def split(word, language='en_us'):
-    dictionary = enchant.Dict(language)
+    if type(language)==str:
+        dictionary = enchant.Dict(language)
+    elif type(language)==enchant.Dict:
+        dictionary = language
+    else:
+        raise TypeError("Variable language can be only str or enchant.Dict")
     max_index = len(word)
     for index, char in enumerate(word):
         left_compound = word[0:max_index-index]
